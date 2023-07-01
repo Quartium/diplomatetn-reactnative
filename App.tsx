@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import LandingScreen from "./src/screens/Landing";
 import OnboardingScreen from './src/screens/OnBoarding';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [completedOnboarding, setCompletedOnboarding] = useState(false);
+
+  useEffect(() => {
+    const checkOnboarding = async () => {
+      const value = await AsyncStorage.getItem('completedOnboarding');
+      if (value !== null) {
+        setCompletedOnboarding(value === 'true');
+      }
+      setIsLoading(false);
+    };
+
+    checkOnboarding();
+  }, []);
+
+  if (isLoading) {
+    return null;  // or a loading spinner, if you prefer
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Onboarding">
+      <Stack.Navigator initialRouteName={completedOnboarding ? 'Landing' : 'Onboarding'}>
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         <Stack.Screen name="Landing" component={LandingScreen} />
       </Stack.Navigator>

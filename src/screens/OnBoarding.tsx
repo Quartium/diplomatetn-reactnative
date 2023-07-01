@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import PagerView from 'react-native-pager-view';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -59,6 +60,7 @@ const OnboardingScreen = () => {
     if (activeIndex < SLIDES.length - 1) {
       pagerRef.current?.setPage(activeIndex + 1);
     } else {
+      AsyncStorage.setItem('completedOnboarding', 'true');
       navigation.navigate('Landing');
     }
   };
