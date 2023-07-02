@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
+const LandingScreen = () => {
+  const navigation = useNavigation();
 
-interface LandingScreenProps {}
-
-class LandingScreen extends Component<LandingScreenProps> {
-
-  async componentDidMount() {
-  }
-
-  componentWillUnmount() {
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Image style={styles.image} source={require('../assets/images/logo.png')} />
-      </View>
-    );
-  }
-}
+  return (
+    <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.container}>
+      <Image style={styles.image} source={require('../assets/images/logo.png')} />
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
