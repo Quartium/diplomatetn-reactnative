@@ -10,7 +10,7 @@ const formatDate = (dateString) => {
     return `Publié le ${date.format('DD MMMM YYYY')}`;
 };
 
-const Category = ({ item, categoryId, onPress }) => {
+const Category = ({ categoryId, navigation }) => {
     const [categoryPosts, setCategoryPosts] = useState([]);
     const [categoryName, setCategoryName] = useState("");
     const [error, setError] = useState(null);
@@ -111,7 +111,7 @@ const Category = ({ item, categoryId, onPress }) => {
                 showsHorizontalScrollIndicator={false}
                 data={categoryPosts}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={onPress} style={styles.container}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Details', { item })} style={styles.container}>
                         <ImageBackground source={{ uri: item.featured_image }} style={styles.image}>
                         </ImageBackground>
                         <View style={styles.textContainer}>

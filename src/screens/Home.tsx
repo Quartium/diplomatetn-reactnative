@@ -125,10 +125,10 @@ const HomeScreen = () => {
                     )}
                     keyExtractor={item => item.id.toString()}
                 />
-                <Category categoryId={7} />
-                <Category categoryId={8} />
-                <Category categoryId={9} />
-                <Category categoryId={10} />
+                <Category categoryId={7} navigation={navigation}/>
+                <Category categoryId={8} navigation={navigation}/>
+                <Category categoryId={9} navigation={navigation}/>
+                <Category categoryId={10} navigation={navigation}/>
             </View>
         </ScrollView>
     );
