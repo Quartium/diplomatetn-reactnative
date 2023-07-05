@@ -39,7 +39,7 @@ const OnboardingScreen = () => {
 
   const renderPage = useCallback((page: Slide, index: number) => (
     <View key={index} style={styles.page}>
-      <Ionicons name={page.icon} size={100} color="white" />
+      <Ionicons name={page.icon} size={150} color="#ea1f3d" />
       <Text style={styles.title}>{page.title}</Text>
       <Text style={styles.text}>{page.text}</Text>
     </View>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#ea1f3d',
+    backgroundColor: '#F3F3F3',
   },
   pagerView: {
     width: '100%',
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   activeDot: {
-    backgroundColor: 'white',
+    backgroundColor: '#ea1f3d',
   },
   buttonContainer: {
     flexDirection: 'row',
