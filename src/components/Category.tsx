@@ -3,7 +3,7 @@ import { View, Text, ImageBackground, TouchableOpacity, FlatList, StyleSheet, us
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Moment from "moment";
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbwRSJrG748NCEZvBANIhMJM1uwu4QiITrPmqLTRNN91YjqLTxNYgb-Z07iJQ4RL7jc14g/exec';
+import { API_URL } from '../../config';
 
 const formatDate = (dateString) => {
     const date = Moment(dateString);

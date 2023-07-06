@@ -6,7 +6,7 @@ const LandingScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.container}>
+    <TouchableOpacity onPress={() => navigation.navigate('HomeTab')} style={styles.container}>
       <Image style={styles.image} source={require('../assets/images/logo.png')} />
     </TouchableOpacity>
   );

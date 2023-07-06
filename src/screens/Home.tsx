@@ -4,8 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Moment from "moment";
 
 import Category from '../components/Category';
-
-const API_URL = 'https://script.google.com/macros/s/AKfycbwRSJrG748NCEZvBANIhMJM1uwu4QiITrPmqLTRNN91YjqLTxNYgb-Z07iJQ4RL7jc14g/exec?posts=true';
+import { API_URL } from '../../config';
 
 const formatDate = (dateString) => {
     const date = Moment(dateString);
@@ -71,7 +70,7 @@ const HomeScreen = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(API_URL);
+                const response = await fetch(`${API_URL}?posts=true`);
 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

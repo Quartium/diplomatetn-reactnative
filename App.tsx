@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -7,8 +8,17 @@ import LandingScreen from "./src/screens/Landing";
 import OnboardingScreen from './src/screens/OnBoarding';
 import HomeScreen from './src/screens/Home';
 import DetailsScreen from './src/screens/Details';
+import CategoryScreen from './src/screens/Category';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const HomeTab = () => (
+  <Tab.Navigator initialRouteName="Home">
+    <Tab.Screen name="Home" component={HomeScreen} />
+    <Tab.Screen name="Category" component={CategoryScreen} />
+  </Tab.Navigator>
+);
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +45,7 @@ const App = () => {
       <Stack.Navigator initialRouteName={completedOnboarding ? 'Landing' : 'Onboarding'}>
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         <Stack.Screen name="Landing" component={LandingScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="HomeTab" component={HomeTab} options={{ headerShown: false }} />
         <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
