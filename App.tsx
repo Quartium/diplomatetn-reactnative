@@ -10,6 +10,7 @@ import HomeScreen from './src/screens/Home';
 import DetailsScreen from './src/screens/Details';
 import CategoryScreen from './src/screens/Category';
 import PostsScreen from './src/screens/Posts';
+import PartyScreen from './src/screens/Party';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -18,6 +19,7 @@ const HomeTab = () => (
   <Tab.Navigator initialRouteName="Home">
     <Tab.Screen name="Home" component={HomeScreen} />
     <Tab.Screen name="Category" component={CategoryScreen} />
+    <Tab.Screen name="Party" component={PartyScreen} />
   </Tab.Navigator>
 );
 
