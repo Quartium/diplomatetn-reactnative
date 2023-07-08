@@ -12,6 +12,7 @@ import CategoryScreen from './src/screens/Category';
 import PostsScreen from './src/screens/Posts';
 import PartyScreen from './src/screens/Party';
 import SearchScreen from './src/screens/Search';
+import BookmarkScreen from './src/screens/Bookmark'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -22,6 +23,7 @@ const HomeTab = () => (
     <Tab.Screen name="Category" component={CategoryScreen} />
     <Tab.Screen name="Party" component={PartyScreen} />
     <Tab.Screen name="Search" component={SearchScreen} />
+    <Tab.Screen name="Bookmark" component={BookmarkScreen} />
   </Tab.Navigator>
 );
 
