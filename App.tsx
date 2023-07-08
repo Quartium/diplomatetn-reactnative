@@ -9,6 +9,7 @@ import OnboardingScreen from './src/screens/OnBoarding';
 import HomeScreen from './src/screens/Home';
 import DetailsScreen from './src/screens/Details';
 import CategoryScreen from './src/screens/Category';
+import PostsScreen from './src/screens/Posts';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -47,6 +48,7 @@ const App = () => {
         <Stack.Screen name="Landing" component={LandingScreen} />
         <Stack.Screen name="HomeTab" component={HomeTab} options={{ headerShown: false }} />
         <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="Posts" component={PostsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
