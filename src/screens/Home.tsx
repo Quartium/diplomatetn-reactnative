@@ -46,6 +46,10 @@ const HomeScreen = () => {
             fontSize: 16,
             color: 'white',
         },
+        category: {
+            fontSize: 14,
+            color: 'white'
+        },
         loadingText: {
             fontSize: 18,
             textAlign: 'center',
@@ -115,7 +119,7 @@ const HomeScreen = () => {
                         >
                             <ImageBackground source={{ uri: item.featured_image }} style={styles.image}>
                                 <View style={styles.textContainer}>
-                                    <Text>À la une</Text>
+                                    <Text style={styles.category}>À la une</Text>
                                     <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
                                     <Text style={styles.date}>{formatDate(item.date)}</Text>
                                 </View>

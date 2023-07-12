@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import OneSignal from 'react-native-onesignal';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import LandingScreen from "./src/screens/Landing";
 import OnboardingScreen from './src/screens/OnBoarding';
@@ -38,17 +40,65 @@ OneSignal.setNotificationOpenedHandler(notification => {
   console.log("OneSignal: notification opened:", notification);
 });
 
-
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeTab = () => (
-  <Tab.Navigator initialRouteName="Home">
-    <Tab.Screen name="Home" component={HomeScreen} />
-    <Tab.Screen name="Category" component={CategoryScreen} />
-    <Tab.Screen name="Party" component={PartyScreen} />
-    <Tab.Screen name="Search" component={SearchScreen} />
-    <Tab.Screen name="Bookmark" component={BookmarkScreen} />
+  <Tab.Navigator
+    initialRouteName="Home"
+    screenOptions={{ 
+      tabBarLabel: () => null,
+      tabBarActiveTintColor: "#D91F3C",
+      tabBarInactiveTintColor: "white",
+      tabBarInactiveBackgroundColor: "#192444",
+      tabBarActiveBackgroundColor: "#192444"
+    }}
+  >
+    <Tab.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="home" color={color} size={size} />
+        )
+      }}
+    />
+    <Tab.Screen
+      name="Category"
+      component={CategoryScreen}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="grid" color={color} size={size} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Party"
+      component={PartyScreen}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="people" color={color} size={size} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Search"
+      component={SearchScreen}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="search" color={color} size={size} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Bookmark"
+      component={BookmarkScreen}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="heart" color={color} size={size} />
+        ),
+      }}
+    />
   </Tab.Navigator>
 );
 
