@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F3F3F3',
     },
     flatListContainer: {
+        paddingTop: 86,
         paddingVertical: 12,
         paddingHorizontal: 24
     },
@@ -91,11 +92,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     inputContainer: {
+        position: 'absolute',
         borderRadius: 4,
         backgroundColor: '#FFF',
         borderBottomWidth: 0,
-        marginHorizontal: 14,
-        marginTop: 24
+        marginLeft: 24,
+        marginTop: 24,
+        zIndex: 2
     },
     leftIconContainerStyle: {
         marginLeft: 12
