@@ -21,15 +21,19 @@ import BookmarkScreen from './src/screens/Bookmark';
 import QuiSommesNousScreen from './src/screens/QuiSommesNous';
 import MentionsLegalesScreen from './src/screens/MentionsLegales';
 import ContactezNousScreen from './src/screens/ContactezNous';
+import ParametersScreen from './src/screens/Parameters';
 
 OneSignal.setAppId("28eddd7f-3e86-41b5-b305-8daeba0544ac");
 OneSignal.promptForPushNotificationsWithUserResponse();
-OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent => {
-  let notification = notificationReceivedEvent.getNotification();
-  const data = notification.additionalData;
-  notificationReceivedEvent.complete(notification);
+OneSignal.setNotificationWillShowInForegroundHandler(async (notificationReceivedEvent) => {
+  const notificationsEnabled = await AsyncStorage.getItem('notificationsEnabled');
+  if (notificationsEnabled === 'false') {
+    notificationReceivedEvent.complete();
+  } else {
+    let notification = notificationReceivedEvent.getNotification();
+    notificationReceivedEvent.complete(notification);
+  }
 });
-OneSignal.setNotificationOpenedHandler(notification => { });
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -75,6 +79,7 @@ const CustomDrawerContent = (props) => {
           <Text style={styles.title} onPress={() => props.navigation.navigate('QuiSommesNous')}>Qui sommes-nous?</Text>
           <Text style={styles.title} onPress={() => props.navigation.navigate('MentionsLegales')}>Mentions légales</Text>
           <Text style={styles.title} onPress={() => props.navigation.navigate('ContactezNous')}>Contactez-nous</Text>
+          <Text style={styles.title} onPress={() => props.navigation.navigate('Parametres')}>Paramètres</Text>
         </View>
       </View>
     </DrawerContentScrollView>
@@ -192,6 +197,17 @@ const DrawerNavigator = () => {
         ),
       }} />
       <Drawer.Screen name="ContactezNous" component={ContactezNousScreen} options={{
+        headerShown: true,
+        headerLeft: () => (
+          <Ionicons
+            name="arrow-back"
+            size={25}
+            onPress={() => navigation.navigate('HomeTab')}
+            style={{ marginLeft: 10 }}
+          />
+        ),
+      }} />
+      <Drawer.Screen name="Parametres" component={ParametersScreen} options={{
         headerShown: true,
         headerLeft: () => (
           <Ionicons

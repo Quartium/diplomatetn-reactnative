@@ -61,6 +61,7 @@ const OnboardingScreen = () => {
       pagerRef.current?.setPage(activeIndex + 1);
     } else {
       AsyncStorage.setItem('completedOnboarding', 'true');
+      AsyncStorage.setItem('notificationsEnabled', 'true');
       navigation.navigate('Landing');
     }
   };
