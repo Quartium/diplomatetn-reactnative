@@ -1,26 +1,34 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Le Diplomate Tunisien - React Native Application
 
-# Getting Started
+Le Diplomate Tunisien is a dedicated mobile application designed to facilitate effective communication and information exchange between Tunisian diplomats. The platform serves as a Think-Tank providing key insights and information on national diplomatic matters.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+Built using React Native, the application is fully cross-platform, supporting both Android and iOS devices. It features intuitive UI/UX designs that streamline the user experience and promote interaction.
 
-## Step 1: Start the Metro Server
+## Features
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+1. **Push Notifications**: The application integrates with OneSignal to enable real-time push notifications. This ensures that the users are kept up-to-date with the latest information and events related to diplomatic matters.
+2. **Offline Reading**: Le Diplomate Tunisien supports offline reading, allowing users to save their preferred articles for reading later. This is particularly useful when an internet connection is not readily available.
+3. **Information Repository**: The application serves as an electronic library on national diplomatic matters. It includes rich resources on various topics related to diplomacy.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+
+## Installation
+
+Clone the repository and install dependencies:
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+git clone https://github.com/Quartium/diplomatetn-reactnative.git
+cd diplomatetn-reactnative
+npm install
 ```
 
-## Step 2: Start your Application
+## Configuration
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+- Set up your OneSignal account and obtain the App ID. Update the OneSignal App ID in the application configuration file.
+- Ensure that the Android SDK and/or Xcode are properly configured if you intend to build the app for Android/iOS.
+
+## Running the Application
+
+To start the application, navigate to the project directory and run:
 
 ### For Android
 
@@ -46,34 +54,12 @@ If everything is set up _correctly_, you should see your new app running in your
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
+## Contributing
 
-Now that you have successfully run the app, let's modify it.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## License
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+This project is licensed under the [MIT License](LICENSE).
 
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Please note that this application is still under active development, and while we strive to keep this README updated, the most current information might be in the source code itself.
