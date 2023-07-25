@@ -66,7 +66,12 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   iconMenu: {
-    marginLeft: 10
+    marginLeft: 10,
+    color: '#000'
+  },
+  iconMenuNegative: {
+    marginLeft: 10,
+    color: '#fff'
   }
 });
 
@@ -113,6 +118,9 @@ const HomeTab = ({ navigation }) => {
         component={HomeScreen}
         options={{
           headerShown: true,
+          headerStyle: {
+            backgroundColor: '#F3F3F3'
+          },
           headerLeft: () => renderHeaderLeft("menu"),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
@@ -124,6 +132,9 @@ const HomeTab = ({ navigation }) => {
         component={CategoryScreen}
         options={{
           headerShown: true,
+          headerStyle: {
+            backgroundColor: '#F3F3F3'
+          },
           headerLeft: () => renderHeaderLeft("menu"),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="grid" color={color} size={size} />
@@ -135,6 +146,9 @@ const HomeTab = ({ navigation }) => {
         component={PartyScreen}
         options={{
           headerShown: true,
+          headerStyle: {
+            backgroundColor: '#F3F3F3'
+          },
           headerLeft: () => renderHeaderLeft("menu"),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="people" color={color} size={size} />
@@ -145,7 +159,7 @@ const HomeTab = ({ navigation }) => {
         name="Search"
         component={SearchScreen}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerLeft: () => renderHeaderLeft("menu"),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="search" color={color} size={size} />
@@ -157,6 +171,9 @@ const HomeTab = ({ navigation }) => {
         component={BookmarkScreen}
         options={{
           headerShown: true,
+          headerStyle: {
+            backgroundColor: '#F3F3F3'
+          },
           headerLeft: () => renderHeaderLeft("menu"),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="heart" color={color} size={size} />
@@ -176,45 +193,61 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="QuiSommesNous" component={QuiSommesNousScreen} options={{
           headerShown: true,
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#192444',
+          },
           headerLeft: () => (
             <Ionicons
               name="arrow-back"
               size={25}
               onPress={() => navigation.navigate('HomeTab')}
-              style={{ marginLeft: 10 }}
+              style={ styles.iconMenuNegative }
             />
           ),
         }} />
       <Drawer.Screen name="MentionsLegales" component={MentionsLegalesScreen} options={{
         headerShown: true,
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#192444',
+        },
         headerLeft: () => (
           <Ionicons
             name="arrow-back"
             size={25}
             onPress={() => navigation.navigate('HomeTab')}
-            style={{ marginLeft: 10 }}
+            style={ styles.iconMenuNegative }
           />
         ),
       }} />
       <Drawer.Screen name="ContactezNous" component={ContactezNousScreen} options={{
         headerShown: true,
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#192444',
+        },
         headerLeft: () => (
           <Ionicons
             name="arrow-back"
             size={25}
             onPress={() => navigation.navigate('HomeTab')}
-            style={{ marginLeft: 10 }}
+            style={ styles.iconMenuNegative }
           />
         ),
       }} />
       <Drawer.Screen name="Parametres" component={ParametersScreen} options={{
         headerShown: true,
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#192444',
+        },
         headerLeft: () => (
           <Ionicons
             name="arrow-back"
             size={25}
             onPress={() => navigation.navigate('HomeTab')}
-            style={{ marginLeft: 10 }}
+            style={ styles.iconMenuNegative }
           />
         ),
       }} />
@@ -247,8 +280,8 @@ const App = () => {
         <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Main" component={DrawerNavigator} options={{ headerShown: false }} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-        <Stack.Screen name="Posts" component={PostsScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Posts" component={PostsScreen} options={{ headerStyle: { backgroundColor: '#F3F3F3' } }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

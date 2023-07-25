@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 24,
+        marginTop: 55
     },
     emptyContainerIcon: {
         width: 150,

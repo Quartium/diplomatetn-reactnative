@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNFS from 'react-native-fs';
@@ -16,6 +17,17 @@ const DetailsScreen = ({ route }) => {
     const [saved, setSaved] = useState(false);
 
     const styles = StyleSheet.create({
+        mainContainer: {
+            flex: 1,
+            position: 'relative'
+        },
+        iconMenu: {
+            color: '#fff', 
+            position: 'absolute', 
+            top: 16,
+            left: 10,
+            zIndex: 1
+        },
         image: {
             height: window.height * 0.3,
             width: '100%',
@@ -104,8 +116,16 @@ const DetailsScreen = ({ route }) => {
         }
     };
 
+    const navigation = useNavigation();
+
     return (
-        <View style={{ flex: 1 }}>
+        <View style={ styles.mainContainer }>
+            <Ionicons
+                name="arrow-back"
+                size={25}
+                onPress={() => navigation.navigate('HomeTab')}
+                style={styles.iconMenu}
+            />
             <ImageBackground source={{ uri: item.featured_image }} style={styles.image} />
             <ScrollView style={styles.container}>
                 <Text style={styles.title}>{item.title}</Text>
