@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { FlatList, View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { Input } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -27,84 +27,98 @@ const SearchScreen = ({ navigation }) => {
         fetchPosts();
     }, []);
 
-    const filteredPosts = posts.filter(post =>
+    const filteredPosts = useMemo(() => posts.filter(post =>
         post.title.toLowerCase().includes(search.toLowerCase())
-    );
+    ), [posts, search]);
 
-    const handlePress = (post) => {
+    const handlePress = useCallback((post) => {
         navigation.navigate('Details', { item: post });
-    };
+    }, [navigation]);
 
     const renderPost = ({ item }) => (
         <PostItem item={item} onPress={() => handlePress(item)} />
     );
 
-    if (loading) {
-        return <ActivityIndicator size="large" color="#0000ff" />;
-    }
-
     return (
-        <View style={styles.container}>
-            <Input
-                placeholder="Rechercher..."
-                leftIcon={{ type: 'ionicon', name: 'search', color: '#192344' }}
-                leftIconContainerStyle={styles.leftIconContainerStyle}
-                rightIcon={search ? { type: 'ionicon', name: 'close', onPress: () => setSearch(''), color: '#192344' } : null}
-                rightIconContainerStyle={styles.rightIconContainerStyle}
-                onChangeText={text => setSearch(text)}
-                value={search}
-                inputStyle={styles.input}
-                inputContainerStyle={styles.inputContainer}
-                renderErrorMessage={false}
-            />
-            {search ? (
-                <FlatList
-                    contentContainerStyle={styles.flatListContainer}
-                    data={filteredPosts}
-                    renderItem={renderPost}
-                    keyExtractor={item => item.id.toString()}
+        <View style={styles.mainContainer}>
+            <View style={styles.headerContainer}>
+                <Ionicons
+                    name="arrow-back"
+                    size={25}
+                    onPress={() => navigation.navigate('HomeTab')}
+                    style={styles.iconMenu}
                 />
-            ) : (
-                <View style={styles.emptyContainer}>
-                    <View style={styles.emptyContainerIcon}>
-                        <Ionicons name="search" size={100} color="#fff" />
+                <Input
+                    placeholder="Rechercher..."
+                    rightIcon={search ? { type: 'ionicon', name: 'close', onPress: () => setSearch(''), color: '#fff' } : null}
+                    onChangeText={text => setSearch(text)}
+                    value={search}
+                    inputStyle={styles.input}
+                    inputContainerStyle={styles.inputContainer}
+                    renderErrorMessage={false}
+                />
+            </View>
+            <View style={styles.container}>
+                {search ? (
+                    loading ? (
+                        <ActivityIndicator size="large" color="#0000ff" />
+                    ) : (
+                        <FlatList
+                            contentContainerStyle={styles.flatListContainer}
+                            data={filteredPosts}
+                            renderItem={renderPost}
+                            keyExtractor={item => item.id.toString()}
+                        />
+                    )
+                ) : (
+                    <View style={styles.emptyContainer}>
+                        <View style={styles.emptyContainerIcon}>
+                            <Ionicons name="search" size={100} color="#fff" />
+                        </View>
+                        <Text style={styles.emptyTitle}>Que souhaitez-vous trouver ?</Text>
+                        <Text style={styles.emptySubtitle}>Recherchez des publications par leur titre en fonction de vos intérêts</Text>
                     </View>
-                    <Text style={styles.emptyTitle}>Que souhaitez-vous trouver ?</Text>
-                    <Text style={styles.emptySubtitle}>Recherchez des publications par leur titre en fonction de vos intérêts</Text>
-                </View>
-            )}
-        </View>
+                )}
+            </View>
+        </View >
     );
 };
 
 const styles = StyleSheet.create({
+    mainContainer: {
+        flex: 1
+    },
     container: {
         flex: 1,
         backgroundColor: '#F3F3F3',
     },
-    flatListContainer: {
-        paddingTop: 86,
-        paddingVertical: 12,
-        paddingHorizontal: 24
+    headerContainer: {
+        position: 'relative',
+        backgroundColor: '#192444',
+        height: 60
     },
-    input: {
-        borderWidth: 0,
-        borderRadius: 10,
+    iconMenu: {
+        color: '#fff',
+        marginLeft: 10,
+        marginTop: 16
     },
     inputContainer: {
         position: 'absolute',
         borderRadius: 4,
-        backgroundColor: '#FFF',
         borderBottomWidth: 0,
-        marginLeft: 24,
-        marginTop: 24,
-        zIndex: 2
+        marginLeft: 32,
+        left: 12,
+        top: -39,
     },
-    leftIconContainerStyle: {
-        marginLeft: 12
+    input: {
+        borderWidth: 0,
+        borderRadius: 10,
+        color: '#fff'
     },
-    rightIconContainerStyle: {
-        marginRight: 12
+    flatListContainer: {
+        paddingTop: 12,
+        paddingVertical: 12,
+        paddingHorizontal: 24
     },
     emptyContainer: {
         flex: 1,
