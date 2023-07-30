@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
 import { Image, View, Text, StyleSheet } from 'react-native';
@@ -23,6 +23,7 @@ import MentionsLegalesScreen from './src/screens/MentionsLegales';
 import ContactezNousScreen from './src/screens/ContactezNous';
 import ParametersScreen from './src/screens/Parameters';
 
+// OneSignal Configuration
 OneSignal.setAppId("28eddd7f-3e86-41b5-b305-8daeba0544ac");
 OneSignal.promptForPushNotificationsWithUserResponse();
 OneSignal.setNotificationWillShowInForegroundHandler(async (notificationReceivedEvent) => {
@@ -36,9 +37,10 @@ OneSignal.setNotificationWillShowInForegroundHandler(async (notificationReceived
 });
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
 
+// Common styles
 const styles = StyleSheet.create({
   drawerContent: {
     flex: 1,
@@ -67,14 +69,23 @@ const styles = StyleSheet.create({
   },
   iconMenu: {
     marginLeft: 10,
-    color: '#000'
-  },
-  iconMenuNegative: {
-    marginLeft: 10,
     color: '#fff'
+  },
+  headerLogo: {
+    width: 200,
+    resizeMode: 'contain'
+  },
+  headerLeftIcon: {
+    color: 'white',
+    marginLeft: 10
+  },
+  headerRightIcon: {
+    color: 'white',
+    marginRight: 10
   }
 });
 
+// Custom Drawer Content Component
 const CustomDrawerContent = (props) => {
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerContent}>
@@ -91,107 +102,92 @@ const CustomDrawerContent = (props) => {
   );
 };
 
-const HomeTab = ({ navigation }) => {
-  const renderHeaderLeft = (menuName) => (
-    <Ionicons
-      name={menuName}
-      size={25}
-      onPress={() => navigation.openDrawer()}
-      style={styles.iconMenu}
-    />
-  );
-
+// Home Tab Component
+const HomeTab = ({}) => {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Actualités"
       screenOptions={{
-        headerShown: false,
-        tabBarLabel: () => null,
-        tabBarActiveTintColor: "#D91F3C",
-        tabBarInactiveTintColor: "white",
-        tabBarInactiveBackgroundColor: "#192444",
-        tabBarActiveBackgroundColor: "#192444"
+        tabBarStyle: { backgroundColor: '#192444' },
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: 'rgba(255,255,255,0.4)',
+        tabBarIndicatorStyle: { backgroundColor: 'white', height: 3 },
+        tabBarLabelStyle: {
+          fontWeight: 'bold',
+          fontSize: 16,
+          textTransform: 'capitalize',
+        },
+        tabBarItemStyle: { width: 'auto' },
+        tabBarScrollEnabled: true
       }}
     >
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#F3F3F3'
-          },
-          headerLeft: () => renderHeaderLeft("menu"),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" color={color} size={size} />
-          )
-        }}
-      />
-      <Tab.Screen
-        name="Category"
-        component={CategoryScreen}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#F3F3F3'
-          },
-          headerLeft: () => renderHeaderLeft("menu"),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="grid" color={color} size={size} />
-          )
-        }}
-      />
-      <Tab.Screen
-        name="Party"
-        component={PartyScreen}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#F3F3F3'
-          },
-          headerLeft: () => renderHeaderLeft("menu"),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="people" color={color} size={size} />
-          )
-        }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{
-          headerShown: false,
-          headerLeft: () => renderHeaderLeft("menu"),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search" color={color} size={size} />
-          )
-        }}
-      />
-      <Tab.Screen
-        name="Bookmark"
-        component={BookmarkScreen}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#F3F3F3'
-          },
-          headerLeft: () => renderHeaderLeft("menu"),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="heart" color={color} size={size} />
-          )
-        }}
-      />
+      <Tab.Screen name="Actualités" component={HomeScreen} />
+      <Tab.Screen name="Catégories" component={CategoryScreen} />
+      <Tab.Screen name="Partis" component={PartyScreen} />
+      <Tab.Screen name="Bookmark" component={BookmarkScreen} />
     </Tab.Navigator>
   );
 };
 
-// Drawer Navigator
+// Drawer Icon Component
+const DrawerIcon = () => {
+  const navigation = useNavigation();
+  return (
+    <Ionicons
+      name="menu"
+      size={25}
+      onPress={() => navigation.openDrawer()}
+      style={styles.headerLeftIcon}
+    />
+  );
+};
+
+// Search Icon Component
+const SearchIcon = () => {
+  const navigation = useNavigation();
+  return (
+    <Ionicons
+      name="search"
+      size={25}
+      onPress={() => navigation.navigate('Search')}
+      style={styles.headerRightIcon}
+    />
+  );
+};
+
+// Logo Title Component
+const LogoTitle = () => {
+  return (
+    <Image
+      source={require('./src/assets/images/logo.png')}
+      style={styles.headerLogo}
+    />
+  );
+};
+
+// Main Drawer Navigator
 const DrawerNavigator = () => {
   const navigation = useNavigation();
   return (
-    <Drawer.Navigator initialRouteName="HomeTab" drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="HomeTab" component={HomeTab} options={{ headerShown: false, drawerLabel: () => null }} />
+    <Drawer.Navigator
+      initialRouteName="HomeTab"
+      drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
-        name="QuiSommesNous" component={QuiSommesNousScreen} options={{
+        name="HomeTab"
+        component={HomeTab}
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#192444' },
+          headerTitleAlign: 'center',
+          headerTitle: props => <LogoTitle {...props} />,
+          headerLeft: props => <DrawerIcon {...props} />,
+          headerRight: props => <SearchIcon {...props} />
+        }}
+      />
+      <Drawer.Screen
+        name="QuiSommesNous"
+        component={QuiSommesNousScreen}
+        options={{
           headerShown: true,
           headerTintColor: '#fff',
           headerStyle: {
@@ -202,55 +198,64 @@ const DrawerNavigator = () => {
               name="arrow-back"
               size={25}
               onPress={() => navigation.navigate('HomeTab')}
-              style={ styles.iconMenuNegative }
+              style={styles.iconMenu}
             />
           ),
         }} />
-      <Drawer.Screen name="MentionsLegales" component={MentionsLegalesScreen} options={{
-        headerShown: true,
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: '#192444',
-        },
-        headerLeft: () => (
-          <Ionicons
-            name="arrow-back"
-            size={25}
-            onPress={() => navigation.navigate('HomeTab')}
-            style={ styles.iconMenuNegative }
-          />
-        ),
-      }} />
-      <Drawer.Screen name="ContactezNous" component={ContactezNousScreen} options={{
-        headerShown: true,
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: '#192444',
-        },
-        headerLeft: () => (
-          <Ionicons
-            name="arrow-back"
-            size={25}
-            onPress={() => navigation.navigate('HomeTab')}
-            style={ styles.iconMenuNegative }
-          />
-        ),
-      }} />
-      <Drawer.Screen name="Parametres" component={ParametersScreen} options={{
-        headerShown: true,
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: '#192444',
-        },
-        headerLeft: () => (
-          <Ionicons
-            name="arrow-back"
-            size={25}
-            onPress={() => navigation.navigate('HomeTab')}
-            style={ styles.iconMenuNegative }
-          />
-        ),
-      }} />
+      <Drawer.Screen
+        name="MentionsLegales"
+        component={MentionsLegalesScreen}
+        options={{
+          headerShown: true,
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#192444',
+          },
+          headerLeft: () => (
+            <Ionicons
+              name="arrow-back"
+              size={25}
+              onPress={() => navigation.navigate('HomeTab')}
+              style={styles.iconMenu}
+            />
+          ),
+        }} />
+      <Drawer.Screen
+        name="ContactezNous"
+        component={ContactezNousScreen}
+        options={{
+          headerShown: true,
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#192444',
+          },
+          headerLeft: () => (
+            <Ionicons
+              name="arrow-back"
+              size={25}
+              onPress={() => navigation.navigate('HomeTab')}
+              style={styles.iconMenu}
+            />
+          ),
+        }} />
+      <Drawer.Screen
+        name="Parametres"
+        component={ParametersScreen}
+        options={{
+          headerShown: true,
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: '#192444',
+          },
+          headerLeft: () => (
+            <Ionicons
+              name="arrow-back"
+              size={25}
+              onPress={() => navigation.navigate('HomeTab')}
+              style={styles.iconMenu}
+            />
+          ),
+        }} />
     </Drawer.Navigator>
   );
 };
@@ -282,6 +287,7 @@ const App = () => {
         <Stack.Screen name="Main" component={DrawerNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="Details" component={DetailsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Posts" component={PostsScreen} options={{ headerStyle: { backgroundColor: '#F3F3F3' } }} />
+        <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
